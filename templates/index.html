@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Стена сообщений</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Стена сообщений</h1>
+    <p>Оставьте здесь любой текст, его увидят все</p>
+  </header>
+
+  <main>
+    <form method="post" action="/add">
+      <input type="text" name="name" maxlength="30" placeholder="Ваше имя (необязательно)">
+      <textarea name="text" rows="3" maxlength="300" placeholder="Ваш текст (до 300 символов)" required></textarea>
+      <button type="submit">Добавить текст</button>
+    </form>
+
+    <section class="messages">
+      {% for m in messages %}
+        <article>
+          <strong>{{ m.name }}</strong>
+          <span class="date">{{ m.created_at }}</span>
+          <p>{{ m.text }}</p>
+        </article>
+      {% else %}
+        <p class="empty">Пока пусто. Будьте первым!</p>
+      {% endfor %}
+    </section>
+  </main>
+</body>
+</html>
